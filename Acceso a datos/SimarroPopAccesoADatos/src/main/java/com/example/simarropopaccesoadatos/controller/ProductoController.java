@@ -1,5 +1,6 @@
 package com.example.simarropopaccesoadatos.controller;
 
+import com.example.simarropopaccesoadatos.entity.Categoria;
 import com.example.simarropopaccesoadatos.entity.Producto;
 import com.example.simarropopaccesoadatos.entity.Usuario;
 import com.example.simarropopaccesoadatos.service.ProductoServiceImpl;
@@ -38,9 +39,9 @@ public class ProductoController {
         List<Producto> lista = service.listar();
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
-    @GetMapping("/{nombre}")
-    public ResponseEntity<List<Producto>> listarPorNombre(@PathVariable("nombre") String nombre) {
-        List<Producto> lista = service.listarPorNombre(nombre);
+    @GetMapping("/listarPorLoQueSea")
+    public ResponseEntity<List<Producto>> listarPorNombreCategoriaPrecioUbicacionAntiguedad(@RequestBody(required = false) String nombre, @RequestBody(required = false) Categoria categoria, @RequestBody(required = false) Long precio, @RequestBody(required = false) String ubicacion, @RequestBody(required = false) Long antiguedad) {
+        List<Producto> lista = service.listarPorNombreCategoriaPrecioUbicacionAntiguedad(nombre, categoria, precio, ubicacion, antiguedad);
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
 }

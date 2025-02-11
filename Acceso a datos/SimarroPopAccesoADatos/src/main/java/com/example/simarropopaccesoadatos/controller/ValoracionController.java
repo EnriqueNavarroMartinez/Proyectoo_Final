@@ -27,6 +27,15 @@ public class ValoracionController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+    @PutMapping
+    public ResponseEntity<Valoracion> modificar(@RequestBody Valoracion valoracion) {
+        return new ResponseEntity<>(service.modificar(valoracion), HttpStatus.OK);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity eliminar(@PathVariable("id") Integer id) {
+        service.eliminar(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<List<Valoracion>> listarValoracionUsuario(@PathVariable("id") Integer idUsuario) {

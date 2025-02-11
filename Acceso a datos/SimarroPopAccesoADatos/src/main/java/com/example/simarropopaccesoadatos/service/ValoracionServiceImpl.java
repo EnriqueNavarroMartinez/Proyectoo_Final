@@ -36,6 +36,16 @@ public class ValoracionServiceImpl implements IValoracionService{
     }
 
     @Override
+    public Valoracion modificar(Valoracion valoracion) {
+        return repository.save(valoracion);
+    }
+
+    @Override
+    public void eliminar(Integer id) {
+        repository.deleteById(id);
+    }
+
+    @Override
     public List<Valoracion> listarValoracionUsuario(Integer idUsuario) {
         List<Optional<Valoracion>> op = repository.listarValoracionUsuario(idUsuario);
         if (op.isEmpty()) {

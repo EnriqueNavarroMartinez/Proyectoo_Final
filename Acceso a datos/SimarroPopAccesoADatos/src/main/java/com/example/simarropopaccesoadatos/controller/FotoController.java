@@ -16,20 +16,37 @@ public class FotoController {
     @Autowired
     FotoServiceImpl service;
 
-    @PostMapping
-    public ResponseEntity<Foto> registrar(@RequestBody Foto foto){
-        return new ResponseEntity<>(service.registrar(foto), HttpStatus.OK);
+    @PostMapping("/{idProducto}")
+    public ResponseEntity<Foto> registrar(@RequestBody Foto foto, @PathVariable("idProducto")Integer idProducto ){
+
+        if (service.registrar(foto, idProducto) != null) {
+            return new ResponseEntity<>(service.registrar(foto, idProducto), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @PostMapping("/{idCategoria}")
     public ResponseEntity<Foto> registrarEnCategoria(@RequestBody Foto foto, @PathVariable("idCategoria") Integer idCategoria){
-        if () {
 
+        if (service.registrarEnCategoria(foto, idCategoria) != null) {
+            return new ResponseEntity<>(service.registrarEnCategoria(foto, idCategoria), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
+    @PutMapping
+    public ResponseEntity<Foto> modificar(@RequestBody Foto foto) {
+        return new ResponseEntity<>(service.modificar(foto), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity eliminar(@PathVariable("id") Integer id) {
+        service.eliminar(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
     @GetMapping("/{idProducto}")
     ResponseEntity<List<Foto>> listarPorIdProducto(@PathVariable("idProducto") Integer idProducto){

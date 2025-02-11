@@ -1,5 +1,6 @@
 package com.example.simarropopaccesoadatos.service;
 
+import com.example.simarropopaccesoadatos.entity.Categoria;
 import com.example.simarropopaccesoadatos.entity.Producto;
 import com.example.simarropopaccesoadatos.repository.IProductoRepository;
 import org.modelmapper.ModelMapper;
@@ -50,10 +51,11 @@ public class ProductoServiceImpl implements IProductoService{
     }
 
     @Override
-    public List<Producto> listarPorNombre(String nombre) {
-        List<Optional<Producto>> opLista = repository.listarPorNombre(nombre);
-        if (!opLista.isEmpty()) {
-           List<Producto> lista = opLista.stream().map(l -> modelMapper.map(opLista, Producto.class)).toList();
+    public List<Producto> listarPorNombreCategoriaPrecioUbicacionAntiguedad(String nombre, Categoria categoria, Long precio, String ubicacion, Long antiguedad) {
+
+        List<Optional<Producto>> opList= repository.listarPorNombreCategoriaPrecioUbicacionAntiguedad(nombre, categoria, precio, ubicacion, antiguedad);
+        if (!opList.isEmpty()) {
+            List<Producto> lista = opList.stream().map(l -> modelMapper.map(opList, Producto.class)).toList();
             return lista;
         } else {
             return null;

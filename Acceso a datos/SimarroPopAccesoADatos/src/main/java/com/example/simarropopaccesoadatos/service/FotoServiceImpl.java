@@ -49,6 +49,16 @@ public class FotoServiceImpl implements IFotoService{
     }
 
     @Override
+    public Foto modificar(Foto foto) {
+        return repository.save(foto);
+    }
+
+    @Override
+    public void eliminar(Integer id) {
+        repository.deleteById(id);
+    }
+
+    @Override
     public List<Foto> listarPorIdProducto(Integer idProducto) {
         List<Optional<Foto>> op = repository.listarPorIdProducto(idProducto);
         if (!op.isEmpty()) {

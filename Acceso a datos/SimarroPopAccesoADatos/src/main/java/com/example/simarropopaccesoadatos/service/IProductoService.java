@@ -2,6 +2,7 @@ package com.example.simarropopaccesoadatos.service;
 
 import com.example.simarropopaccesoadatos.entity.Categoria;
 import com.example.simarropopaccesoadatos.entity.Producto;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +14,7 @@ public interface IProductoService {
     List<Producto> listar();
     void eliminarPorId(Integer id);
 
-    List<Producto> listarPorNombre(String nombre);
+    List<Producto> listarPorNombreCategoriaPrecioUbicacionAntiguedad(String nombre, Categoria categoria, Long precio, String ubicacion, Long antiguedad);
 
 
 }
