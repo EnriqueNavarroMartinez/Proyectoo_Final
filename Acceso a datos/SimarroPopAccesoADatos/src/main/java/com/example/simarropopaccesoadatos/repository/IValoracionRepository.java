@@ -13,6 +13,6 @@ import java.util.Optional;
 @Repository
 public interface IValoracionRepository extends JpaRepository<Valoracion, Integer> {
 
-    @Query("SELECT v FROM valoracion v WHERE v.usuario = :usuario")
-    List<Optional<Valoracion>> listarValoracionUsuario(@Param("usuario") Usuario usuario);
+    @Query("SELECT v FROM valoracion v WHERE v.usuario.id = :idUsuario")
+    List<Optional<Valoracion>> listarValoracionUsuario(@Param("idUsuario") Integer idUsuario);
 }

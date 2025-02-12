@@ -1,8 +1,9 @@
 package com.example.simarropopaccesoadatos.service;
 
+import com.example.simarropopaccesoadatos.entity.Categoria;
 import com.example.simarropopaccesoadatos.entity.Producto;
 import com.example.simarropopaccesoadatos.repository.IProductoRepository;
-import com.example.simarropopaccesoadatos.utils.ModelMapperConfig;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ public class ProductoServiceImpl implements IProductoService{
     IProductoRepository repository;
 
     @Autowired
-    ModelMapperConfig modelMapper;
+    ModelMapper modelMapper;
 
     @Override
     public Producto registrar(Producto producto) {
@@ -33,6 +34,16 @@ public class ProductoServiceImpl implements IProductoService{
     public List<Producto> listar() {
         return repository.findAll();
     }
+    @Override
+    public Producto listarPorId(Integer id) {
+        Optional<Producto> op = repository.findById(id);
+        if (op.isPresent()) {
+            Producto producto = modelMapper.map(op, Producto.class);
+            return producto;
+        } else {
+            return null;
+        }
+    }
 
     @Override
     public void eliminarPorId(Integer id) {
@@ -40,8 +51,14 @@ public class ProductoServiceImpl implements IProductoService{
     }
 
     @Override
-    public List<Producto> listarPorNombre(String nombre) {
-        List<Producto> lista = repository.listarPorNombre(nombre);
-        return lista;
+    public List<Producto> listarPorNombreCategoriaPrecioUbicacionAntiguedad(String nombre, Categoria categoria, Long precio, String ubicacion, Long antiguedad) {
+
+        List<Optional<Producto>> opList= repository.listarPorNombreCategoriaPrecioUbicacionAntiguedad(nombre, categoria, precio, ubicacion, antiguedad);
+        if (!opList.isEmpty()) {
+            List<Producto> lista = opList.stream().map(l -> modelMapper.map(opList, Producto.class)).toList();
+            return lista;
+        } else {
+            return null;
+        }
     }
 }

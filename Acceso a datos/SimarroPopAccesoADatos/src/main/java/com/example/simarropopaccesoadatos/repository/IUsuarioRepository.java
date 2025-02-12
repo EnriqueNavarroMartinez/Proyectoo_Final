@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     @Query("SELECT u FROM usuario u WHERE u.correo = :correo AND u.contrasenya = :contrasenya")
-    Usuario comprobarUsuario(@Param("correo") String correo, @Param("contrasenya") String contrasenya);
+    Optional<Usuario> comprobarUsuario(@Param("correo") String correo, @Param("contrasenya") String contrasenya);
 }

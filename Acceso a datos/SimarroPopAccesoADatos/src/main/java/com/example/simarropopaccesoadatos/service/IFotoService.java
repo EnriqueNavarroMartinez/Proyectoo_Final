@@ -7,5 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IFotoService {
-    List<Optional<Foto>> listarPorProducto(Producto producto);
+    Foto registrar(Foto foto, Integer idProducto);
+    Foto registrarEnCategoria(Foto foto, Integer idCategoria);
+    Foto modificar(Foto foto);
+    void eliminar(Integer id);
+    List<Foto> listarPorIdProducto(Integer idProducto);
 }

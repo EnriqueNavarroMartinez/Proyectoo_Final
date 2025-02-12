@@ -10,6 +10,7 @@ public interface IUsuarioService {
     Usuario registrar(Usuario usuario);
     Usuario modificar(Usuario usuario);
     List<Usuario> listar();
+    Usuario listarPorId(Integer idUsuario);
     void eliminarPorId(Integer id);
 
     Usuario comprobarUsuario(String correo, String contrasenya);

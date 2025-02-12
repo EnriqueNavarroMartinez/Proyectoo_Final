@@ -13,6 +13,6 @@ import java.util.Optional;
 @Repository
 public interface IFotoRepository extends JpaRepository<Foto, Integer> {
 
-    @Query("SELECT f FROM foto f WHERE f.producto = :producto")
-    List<Optional<Foto>> listarPorProducto(@Param("producto") Producto producto);
+    @Query("SELECT f FROM foto f WHERE f.producto.id = :idProducto")
+    List<Optional<Foto>> listarPorIdProducto(@Param("idProducto") Integer idProducto);
 }

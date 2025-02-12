@@ -15,7 +15,7 @@ import java.util.Optional;
 @Repository
 public interface IProductoRepository extends JpaRepository<Producto, Integer> {
 
-    @Query("SELECT p FROM producto p WHERE p.nombre = :nombre")
-    List<Producto> listarPorNombre(@Param("nombre") String nombre);
+    @Query("SELECT p FROM producto p WHERE (p.nombre = :nombre OR p.nombre = null) AND (p.categoria = :categoria OR p.categoria = null) AND (p.precio = :precio OR p.precio = null) AND (p.ubicacion = :ubicacion OR p.ubicacion = null) AND (p.antiguedad = :antiguedad OR p.antiguedad = null) ")
+    List<Optional<Producto>> listarPorNombreCategoriaPrecioUbicacionAntiguedad(@Param("nombre") String nombre, @Param("categoria") Categoria categoria, @Param("precio") Long precio, @Param("ubicacion") String ubicacion, @Param("antiguedad") Long antiguedad);
 
 }
