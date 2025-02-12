@@ -23,7 +23,11 @@ public class ProductoController {
 
     @PostMapping
     ResponseEntity<Producto> registrar(@RequestBody Producto producto) {
-        return new ResponseEntity<>(service.registrar(producto), HttpStatus.OK);
+        if (service.registrar(producto) != null) {
+            return new ResponseEntity<>(service.registrar(producto), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
     @PutMapping
     ResponseEntity<Producto> modificar(@RequestBody Producto producto) {

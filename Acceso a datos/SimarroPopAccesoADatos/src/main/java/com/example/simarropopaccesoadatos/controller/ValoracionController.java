@@ -18,10 +18,10 @@ public class ValoracionController {
     @Autowired
     ValoracionServiceImpl service;
 
-    @PostMapping("/{id}")
-    public ResponseEntity<Valoracion> registrar(@RequestBody Valoracion valoracion, @PathVariable("id") Integer idUsuario) {
+    @PostMapping()
+    public ResponseEntity<Valoracion> registrar(@RequestBody Valoracion valoracion) {
 
-        if (service.registrar(valoracion, idUsuario) != null){
+        if (service.registrar(valoracion) != null){
             return new ResponseEntity<>(valoracion, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

@@ -25,8 +25,8 @@ public class ValoracionServiceImpl implements IValoracionService{
     ModelMapper modelMapper;
 
     @Override
-    public Valoracion registrar(Valoracion valoracion, Integer idUsuario ) {
-        Usuario usu = usuarioService.listarPorId(idUsuario);
+    public Valoracion registrar(Valoracion valoracion) {
+        Usuario usu = usuarioService.listarPorId(valoracion.getUsuario().getId());
         if (usu != null){
             valoracion.setUsuario(usu);
             return repository.save(valoracion);
