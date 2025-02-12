@@ -2,6 +2,7 @@ package com.example.simarropopaccesoadatos.service;
 
 import com.example.simarropopaccesoadatos.entity.Categoria;
 import com.example.simarropopaccesoadatos.entity.Producto;
+import com.example.simarropopaccesoadatos.entity.Usuario;
 import com.example.simarropopaccesoadatos.repository.IProductoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,25 @@ public class ProductoServiceImpl implements IProductoService{
     IProductoRepository repository;
 
     @Autowired
+    UsuarioServiceImpl usuarioService;
+
+    @Autowired
+    CategoriaServiceImpl categoriaService;
+
+    @Autowired
     ModelMapper modelMapper;
 
     @Override
     public Producto registrar(Producto producto) {
-        return repository.save(producto);
+        Usuario usuario = usuarioService.listarPorId(producto.getUsuario().getId());
+        Categoria categoria = categoriaService.listarPorId(producto.getCategoria().getId());
+        if (usuario != null && categoria != null) {
+            producto.setUsuario(usuario);
+            producto.setCategoria(categoria);
+            return repository.save(producto);
+        } else {
+            return null;
+        }
     }
 
     @Override

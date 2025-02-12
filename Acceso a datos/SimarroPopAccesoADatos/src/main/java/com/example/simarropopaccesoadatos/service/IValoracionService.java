@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IValoracionService {
-    Valoracion registrar(Valoracion valoracion, Integer idUsuario);
+    Valoracion registrar(Valoracion valoracion);
     Valoracion modificar(Valoracion valoracion);
     void eliminar(Integer id);
     List<Valoracion> listarValoracionUsuario(Integer idUsuario);
