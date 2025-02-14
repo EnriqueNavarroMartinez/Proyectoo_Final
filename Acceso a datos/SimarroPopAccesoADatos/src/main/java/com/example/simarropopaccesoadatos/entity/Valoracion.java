@@ -14,7 +14,7 @@ public class Valoracion {
     @Column
     private String comentario;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne//(cascade = CascadeType)
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 

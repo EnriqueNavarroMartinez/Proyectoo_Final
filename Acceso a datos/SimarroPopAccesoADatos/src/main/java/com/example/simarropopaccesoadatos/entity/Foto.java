@@ -14,13 +14,9 @@ public class Foto {
     @Column
     private String descripcio;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "id_producto")
     private Producto producto;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_categoria")
-    private Categoria categoria;
 
     public Foto() {
     }
@@ -31,11 +27,11 @@ public class Foto {
         this.descripcio = descripcio;
         this.producto = producto;
     }
-    public Foto(Integer id, String url, String descripcio, Categoria categoria) {
+    public Foto(Integer id, String url, String descripcio) {
         this.id = id;
         this.url = url;
         this.descripcio = descripcio;
-        this.categoria = categoria;
+
     }
 
     public Integer getId() {
@@ -70,11 +66,4 @@ public class Foto {
         this.producto = producto;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
 }

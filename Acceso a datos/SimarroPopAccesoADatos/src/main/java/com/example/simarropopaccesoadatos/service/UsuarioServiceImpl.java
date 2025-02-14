@@ -56,8 +56,7 @@ public class UsuarioServiceImpl implements IUsuarioService{
     public Usuario comprobarUsuario(String correo, String contrasenya) {
         Optional<Usuario> op = repository.comprobarUsuario(correo, contrasenya);
         if (op.isPresent()) {
-            Usuario usuario = modelMapper.map(op, Usuario.class);
-            return usuario;
+            return op.get();
         } else {
             return null;
         }

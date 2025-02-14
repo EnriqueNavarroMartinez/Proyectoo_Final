@@ -42,7 +42,15 @@ public class ProductoServiceImpl implements IProductoService{
 
     @Override
     public Producto modificar(Producto producto) {
-        return repository.save(producto);
+        Usuario usuario = usuarioService.listarPorId(producto.getUsuario().getId());
+        Categoria categoria = categoriaService.listarPorId(producto.getCategoria().getId());
+        if (usuario != null && categoria != null) {
+            producto.setUsuario(usuario);
+            producto.setCategoria(categoria);
+            return repository.save(producto);
+        } else {
+            return null;
+        }
     }
 
     @Override

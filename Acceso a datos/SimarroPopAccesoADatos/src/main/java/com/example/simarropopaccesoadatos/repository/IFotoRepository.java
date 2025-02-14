@@ -14,5 +14,5 @@ import java.util.Optional;
 public interface IFotoRepository extends JpaRepository<Foto, Integer> {
 
     @Query("SELECT f FROM foto f WHERE f.producto.id = :idProducto")
-    List<Optional<Foto>> listarPorIdProducto(@Param("idProducto") Integer idProducto);
+    List<Foto> listarPorIdProducto(@Param("idProducto") Integer idProducto);
 }

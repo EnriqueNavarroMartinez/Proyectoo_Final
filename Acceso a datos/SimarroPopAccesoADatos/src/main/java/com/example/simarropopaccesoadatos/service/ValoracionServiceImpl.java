@@ -39,6 +39,8 @@ public class ValoracionServiceImpl implements IValoracionService{
     public Valoracion modificar(Valoracion valoracion) {
         Usuario usu = usuarioService.listarPorId(valoracion.getUsuario().getId());
         if (usu != null){
+            valoracion.setUsuario(usu);
+
             return repository.save(valoracion);
         } else {
             return null;
@@ -54,12 +56,12 @@ public class ValoracionServiceImpl implements IValoracionService{
     //ESTA NO ESTA BIEN -----------------
     @Override
     public List<Valoracion> listarValoracionUsuario(Integer idUsuario) {
-        List<Optional<Valoracion>> op = repository.listarValoracionUsuario(idUsuario);
-        if (op.isEmpty()) {
-            return null;
+
+        Usuario usu = usuarioService.listarPorId(idUsuario);
+        if (usu != null) {
+            return repository.listarValoracionUsuario(idUsuario);
         } else {
-            List<Valoracion> lista = op.stream().map(l -> modelMapper.map(op, Valoracion.class)).collect(Collectors.toList());
-            return lista;
+            return null;
         }
     }
 }

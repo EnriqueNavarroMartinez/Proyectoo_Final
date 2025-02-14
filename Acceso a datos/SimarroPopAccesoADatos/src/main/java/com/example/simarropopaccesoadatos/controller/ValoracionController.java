@@ -18,7 +18,7 @@ public class ValoracionController {
     @Autowired
     ValoracionServiceImpl service;
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<Valoracion> registrar(@RequestBody Valoracion valoracion) {
 
         if (service.registrar(valoracion) != null){

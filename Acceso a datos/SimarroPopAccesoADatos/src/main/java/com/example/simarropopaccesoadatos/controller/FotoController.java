@@ -26,20 +26,13 @@ public class FotoController {
         }
 
     }
-
-    @PostMapping("/categoria/{idCategoria}")
-    public ResponseEntity<Foto> registrarEnCategoria(@RequestBody Foto foto, @PathVariable("idCategoria") Integer idCategoria){
-
-        if (service.registrarEnCategoria(foto, idCategoria) != null) {
-            return new ResponseEntity<>(service.registrarEnCategoria(foto, idCategoria), HttpStatus.OK);
+    @PutMapping
+    public ResponseEntity<Foto> modificar(@RequestBody Foto foto) {
+        if (service.modificar(foto) != null ) {
+            return new ResponseEntity<>(service.modificar(foto), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-    }
-
-    @PutMapping
-    public ResponseEntity<Foto> modificar(@RequestBody Foto foto) {
-        return new ResponseEntity<>(service.modificar(foto), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

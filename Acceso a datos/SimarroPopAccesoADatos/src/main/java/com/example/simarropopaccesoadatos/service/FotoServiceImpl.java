@@ -23,9 +23,6 @@ public class FotoServiceImpl implements IFotoService{
     ProductoServiceImpl productoService;
 
     @Autowired
-    CategoriaServiceImpl categoriaService;
-
-    @Autowired
     ModelMapper modelMapper;
 
     @Override
@@ -38,19 +35,15 @@ public class FotoServiceImpl implements IFotoService{
             return null;
         }
     }
-    public Foto registrarEnCategoria(Foto foto, Integer idCategoria) {
-        Categoria cat = categoriaService.listarPorId(idCategoria);
-        if (cat != null){
-            foto.setCategoria(cat);
+
+    @Override
+    public Foto modificar(Foto foto) {
+        if ( productoService.listarPorId(foto.getProducto().getId()) != null) {
+            foto.setProducto(productoService.listarPorId(foto.getProducto().getId()));
             return repository.save(foto);
         } else {
             return null;
         }
-    }
-
-    @Override
-    public Foto modificar(Foto foto) {
-        return repository.save(foto);
     }
 
     @Override
@@ -60,10 +53,9 @@ public class FotoServiceImpl implements IFotoService{
 
     @Override
     public List<Foto> listarPorIdProducto(Integer idProducto) {
-        List<Optional<Foto>> op = repository.listarPorIdProducto(idProducto);
-        if (!op.isEmpty()) {
-            List<Foto> lista = op.stream().map(l -> modelMapper.map(op, Foto.class)).toList();
-                return lista;
+        if ( productoService.listarPorId(idProducto) != null ) {
+            List<Foto> list = repository.listarPorIdProducto(idProducto);
+            return list;
         } else {
             return null;
         }
