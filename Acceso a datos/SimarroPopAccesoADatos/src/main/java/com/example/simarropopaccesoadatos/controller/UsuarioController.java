@@ -27,10 +27,15 @@ public class UsuarioController {
         return new ResponseEntity<>(service.registrar(usuario), HttpStatus.OK);
     }
 
-    @PutMapping
-    ResponseEntity<Usuario> modificar(@RequestBody Usuario usuario) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Usuario> modificar(@PathVariable Integer id, @RequestBody Usuario usuario) {
 
-        return new ResponseEntity<>(service.modificar(usuario), HttpStatus.OK);
+        if (service.modificar(id, usuario) != null) {
+            return new ResponseEntity<>(service.modificar(id, usuario), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        }
     }
 
     @DeleteMapping("/{id}")

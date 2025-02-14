@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface IUsuarioService {
     Usuario registrar(Usuario usuario);
-    Usuario modificar(Usuario usuario);
+    Usuario modificar(Integer id, Usuario usuario);
     List<Usuario> listar();
     Usuario listarPorId(Integer idUsuario);
     void eliminarPorId(Integer id);

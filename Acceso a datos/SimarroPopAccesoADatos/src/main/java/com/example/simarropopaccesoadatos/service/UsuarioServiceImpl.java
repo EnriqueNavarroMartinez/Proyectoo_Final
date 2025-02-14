@@ -27,8 +27,14 @@ public class UsuarioServiceImpl implements IUsuarioService{
     }
 
     @Override
-    public Usuario modificar(Usuario usuario) {
-        return repository.save(usuario);
+    public Usuario modificar(Integer id, Usuario usuario) {
+        Optional<Usuario> op = repository.findById(id);
+        if(op.isPresent()) {
+            usuario.setId(id);  // Asegurar que el ID es el correcto
+            return repository.save(usuario);
+        } else {
+            return null;
+        }
     }
 
     @Override
