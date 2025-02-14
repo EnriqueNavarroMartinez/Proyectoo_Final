@@ -34,18 +34,20 @@ public class ValoracionServiceImpl implements IValoracionService{
             return null;
         }
     }
-
+    //ESTA NO ESTA BIEN -----------------
     @Override
     public Valoracion modificar(Valoracion valoracion) {
         Usuario usu = usuarioService.listarPorId(valoracion.getUsuario().getId());
         if (usu != null){
             valoracion.setUsuario(usu);
+
             return repository.save(valoracion);
         } else {
             return null;
         }
     }
 
+    //ESTA NO ESTA BIEN -----------------
     @Override
     public void eliminar(Integer id) {
         repository.deleteById(id);
