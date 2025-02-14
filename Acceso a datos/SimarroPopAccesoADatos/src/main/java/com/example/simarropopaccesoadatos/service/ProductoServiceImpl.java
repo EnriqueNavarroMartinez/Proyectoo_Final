@@ -53,8 +53,7 @@ public class ProductoServiceImpl implements IProductoService{
     public Producto listarPorId(Integer id) {
         Optional<Producto> op = repository.findById(id);
         if (op.isPresent()) {
-            Producto producto = modelMapper.map(op, Producto.class);
-            return producto;
+            return op.get();
         } else {
             return null;
         }
@@ -65,6 +64,7 @@ public class ProductoServiceImpl implements IProductoService{
         repository.deleteById(id);
     }
 
+    //ESTA NO ESTA BIEN -----------------
     @Override
     public List<Producto> listarPorNombreCategoriaPrecioUbicacionAntiguedad(String nombre, Categoria categoria, Long precio, String ubicacion, Long antiguedad) {
 

@@ -16,7 +16,7 @@ public class FotoController {
     @Autowired
     FotoServiceImpl service;
 
-    @PostMapping("/{idProducto}")
+    @PostMapping("/producto/{idProducto}")
     public ResponseEntity<Foto> registrar(@RequestBody Foto foto, @PathVariable("idProducto")Integer idProducto ){
 
         if (service.registrar(foto, idProducto) != null) {
@@ -27,7 +27,7 @@ public class FotoController {
 
     }
 
-    @PostMapping("/{idCategoria}")
+    @PostMapping("/categoria/{idCategoria}")
     public ResponseEntity<Foto> registrarEnCategoria(@RequestBody Foto foto, @PathVariable("idCategoria") Integer idCategoria){
 
         if (service.registrarEnCategoria(foto, idCategoria) != null) {

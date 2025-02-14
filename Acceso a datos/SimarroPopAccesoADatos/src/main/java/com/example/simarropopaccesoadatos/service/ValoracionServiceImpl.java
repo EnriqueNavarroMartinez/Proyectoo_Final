@@ -34,17 +34,24 @@ public class ValoracionServiceImpl implements IValoracionService{
             return null;
         }
     }
-
+    //ESTA NO ESTA BIEN -----------------
     @Override
     public Valoracion modificar(Valoracion valoracion) {
-        return repository.save(valoracion);
+        Usuario usu = usuarioService.listarPorId(valoracion.getUsuario().getId());
+        if (usu != null){
+            return repository.save(valoracion);
+        } else {
+            return null;
+        }
     }
 
+    //ESTA NO ESTA BIEN -----------------
     @Override
     public void eliminar(Integer id) {
         repository.deleteById(id);
     }
 
+    //ESTA NO ESTA BIEN -----------------
     @Override
     public List<Valoracion> listarValoracionUsuario(Integer idUsuario) {
         List<Optional<Valoracion>> op = repository.listarValoracionUsuario(idUsuario);

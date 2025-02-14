@@ -26,8 +26,8 @@ public class CategoriaServiceImpl implements ICategoriaService{
     public Categoria listarPorId(Integer id) {
         Optional<Categoria> op = repository.findById(id);
         if (op.isPresent()) {
-            Categoria categoria = modelMapper.map(op, Categoria.class);
-            return categoria;
+            
+            return op.get();
         } else {
             return null;
         }
