@@ -18,18 +18,23 @@ public class ValoracionController {
     @Autowired
     ValoracionServiceImpl service;
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<Valoracion> registrar(@RequestBody Valoracion valoracion) {
 
         if (service.registrar(valoracion) != null){
-            return new ResponseEntity<>(valoracion, HttpStatus.OK);
+            return new ResponseEntity<>(service.registrar(valoracion), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
     @PutMapping
     public ResponseEntity<Valoracion> modificar(@RequestBody Valoracion valoracion) {
-        return new ResponseEntity<>(service.modificar(valoracion), HttpStatus.OK);
+
+        if (service.modificar(valoracion) != null){
+            return new ResponseEntity<>(service.modificar(valoracion), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
     @DeleteMapping("/{id}")
     public ResponseEntity eliminar(@PathVariable("id") Integer id) {

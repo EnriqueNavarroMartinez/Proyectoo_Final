@@ -40,13 +40,13 @@ public class UsuarioServiceImpl implements IUsuarioService{
         Optional<Usuario> op = repository.findById(idUsuario);
 
         if (op.isPresent()) {
-            Usuario usuario = modelMapper.map(op, Usuario.class);
-            return usuario;
+            return op.get();
         } else {
             return null;
         }
     }
 
+    //ESTA NO ESTA BIEN -----------------
     @Override
     public void eliminarPorId(Integer id) {
         repository.deleteById(id);
@@ -56,8 +56,7 @@ public class UsuarioServiceImpl implements IUsuarioService{
     public Usuario comprobarUsuario(String correo, String contrasenya) {
         Optional<Usuario> op = repository.comprobarUsuario(correo, contrasenya);
         if (op.isPresent()) {
-            Usuario usuario = modelMapper.map(op, Usuario.class);
-            return usuario;
+            return op.get();
         } else {
             return null;
         }

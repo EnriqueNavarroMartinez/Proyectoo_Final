@@ -31,8 +31,11 @@ public class ProductoController {
     }
     @PutMapping
     ResponseEntity<Producto> modificar(@RequestBody Producto producto) {
-        return new ResponseEntity<>(service.modificar(producto), HttpStatus.OK);
-    }
+        if (service.modificar(producto) != null) {
+            return new ResponseEntity<>(service.modificar(producto), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }    }
     @DeleteMapping("/{id}")
     ResponseEntity eliminar(@PathVariable("id") Integer id){
         service.eliminarPorId(id);

@@ -11,7 +11,7 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
@@ -33,6 +33,9 @@ public class Producto {
 
     @Column
     private String ubicacion;
+
+    //@Column
+    //private boolean deseado;
 
     public Producto() {}
 
@@ -110,4 +113,14 @@ public class Producto {
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
     }
+    /*
+    public boolean isDeseado() {
+        return deseado;
+    }
+
+    public void setDeseado(boolean deseado) {
+        this.deseado = deseado;
+    }
+
+     */
 }

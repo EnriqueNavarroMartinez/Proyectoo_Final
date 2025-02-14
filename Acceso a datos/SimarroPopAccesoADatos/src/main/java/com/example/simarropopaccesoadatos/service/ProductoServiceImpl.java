@@ -42,7 +42,15 @@ public class ProductoServiceImpl implements IProductoService{
 
     @Override
     public Producto modificar(Producto producto) {
-        return repository.save(producto);
+        Usuario usuario = usuarioService.listarPorId(producto.getUsuario().getId());
+        Categoria categoria = categoriaService.listarPorId(producto.getCategoria().getId());
+        if (usuario != null && categoria != null) {
+            producto.setUsuario(usuario);
+            producto.setCategoria(categoria);
+            return repository.save(producto);
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -53,8 +61,7 @@ public class ProductoServiceImpl implements IProductoService{
     public Producto listarPorId(Integer id) {
         Optional<Producto> op = repository.findById(id);
         if (op.isPresent()) {
-            Producto producto = modelMapper.map(op, Producto.class);
-            return producto;
+            return op.get();
         } else {
             return null;
         }
@@ -65,6 +72,7 @@ public class ProductoServiceImpl implements IProductoService{
         repository.deleteById(id);
     }
 
+    //ESTA NO ESTA BIEN -----------------
     @Override
     public List<Producto> listarPorNombreCategoriaPrecioUbicacionAntiguedad(String nombre, Categoria categoria, Long precio, String ubicacion, Long antiguedad) {
 
