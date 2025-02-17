@@ -26,6 +26,7 @@ public class FotoController {
         }
 
     }
+
     @PutMapping
     public ResponseEntity<Foto> modificar(@RequestBody Foto foto) {
         if (service.modificar(foto) != null ) {
