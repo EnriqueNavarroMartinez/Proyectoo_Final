@@ -21,16 +21,19 @@ public class Usuario {
     @Column
     private String numTelefono;
 
+    @Column
+    private boolean premium = false;
 
     public Usuario() {
     }
 
-    public Usuario(Integer id, String nombre, String correo, String contrasenya, String numTelefono) {
+    public Usuario(Integer id, String nombre, String correo, String contrasenya, String numTelefono, boolean premium) {
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;
         this.contrasenya = contrasenya;
         this.numTelefono = numTelefono;
+        this.premium = premium;
     }
 
     public Integer getId() {
@@ -71,5 +74,12 @@ public class Usuario {
 
     public void setNumTelefono(String numTelefono) {
         this.numTelefono = numTelefono;
+    }
+
+    public boolean isPremium() {
+        return premium;
+    }
+    public void setPremium(boolean premium) {
+        this.premium = premium;
     }
 }

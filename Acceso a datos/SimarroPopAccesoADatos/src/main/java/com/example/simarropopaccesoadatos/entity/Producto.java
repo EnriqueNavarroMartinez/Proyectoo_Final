@@ -34,12 +34,12 @@ public class Producto {
     @Column
     private String ubicacion;
 
-    //@Column
-    //private boolean deseado;
+    @Column
+    private boolean deseado = false;
 
     public Producto() {}
 
-    public Producto(Integer id, Usuario usuario, Categoria categoria, String nombre, String descripcion, Long antiguedad, Long precio, String ubicacion) {
+    public Producto(Integer id, Usuario usuario, Categoria categoria, String nombre, String descripcion, Long antiguedad, Long precio, String ubicacion, boolean deseado) {
         this.id = id;
         this.usuario = usuario;
         this.categoria = categoria;
@@ -48,6 +48,7 @@ public class Producto {
         this.antiguedad = antiguedad;
         this.precio = precio;
         this.ubicacion = ubicacion;
+        this.deseado = deseado;
     }
 
     public Integer getId() {
@@ -113,7 +114,7 @@ public class Producto {
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
     }
-    /*
+
     public boolean isDeseado() {
         return deseado;
     }
@@ -122,5 +123,5 @@ public class Producto {
         this.deseado = deseado;
     }
 
-     */
+
 }
