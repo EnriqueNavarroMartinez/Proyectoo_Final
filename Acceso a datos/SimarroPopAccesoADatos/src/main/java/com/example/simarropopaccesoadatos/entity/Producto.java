@@ -1,5 +1,6 @@
 package com.example.simarropopaccesoadatos.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -7,33 +8,42 @@ import java.util.List;
 @Entity(name = "producto")
 public class Producto {
 
+    @Schema(description = "Identificador del producto", example = "1")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Schema(description = "Identificador del usuario que ha publicacdo el producto", example = "1")
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
+    @Schema(description = "Identificador de la categoria del producto", example = "1")
     @ManyToOne
     @JoinColumn(name = "id_categoria")
     private Categoria categoria;
 
+    @Schema(description = "Nombre del producto", example = "Estroboscopio")
     @Column
     private String nombre;
 
+    @Schema(description = "Descripcion del producto", example = "Aparatejo que estroboscopea")
     @Column
     private String descripcion;
 
+    @Schema(description = "Antiguedad del producto", example = "3")
     @Column
     private Long antiguedad;
 
+    @Schema(description = "Precio unitario del producto", example = "29")
     @Column
     private Long precio;
 
+    @Schema(description = "Ubicacion del producto", example = "Barcelona")
     @Column
     private String ubicacion;
 
+    @Schema(description = "Es un producto favorito?", example = "false")
     @Column
     private boolean deseado = false;
 

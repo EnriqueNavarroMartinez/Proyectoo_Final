@@ -1,26 +1,33 @@
 package com.example.simarropopaccesoadatos.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 @Entity(name = "usuario")
 public class Usuario {
 
+    @Schema(description = "Identificador del usuario", example = "1")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Schema(description = "Nombre del usuario", example = "Manolo")
     @Column
     private String nombre;
 
+    @Schema(description = "Correo del usuario", example = "manolo69@ejemplo.es")
     @Column
     private String correo;
 
+    @Schema(description = "Contrasenya del usuario", example = "contrasenya1234")
     @Column
     private String contrasenya;
 
+    @Schema(description = "Numero de telefono del usuario", example = "626 101 989")
     @Column
     private String numTelefono;
 
+    @Schema(description = "Es un usuario premium?", example = "false")
     @Column
     private boolean premium = false;
 
