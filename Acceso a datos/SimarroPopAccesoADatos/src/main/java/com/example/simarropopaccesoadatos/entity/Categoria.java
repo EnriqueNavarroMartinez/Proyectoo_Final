@@ -1,17 +1,21 @@
 package com.example.simarropopaccesoadatos.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 @Entity(name = "categoria")
 public class Categoria {
 
+    @Schema(description = "Identificador de la categoria", example = "1")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Schema(description = "Nombre de la categoria", example = "Inmobiliaria")
     @Column
     private String nombre;
 
+    @Schema(description = "Descripcion de la categoria", example = "Casas, casetas, garajes, apartamentos...")
     @Column
     private String descripcion;
 

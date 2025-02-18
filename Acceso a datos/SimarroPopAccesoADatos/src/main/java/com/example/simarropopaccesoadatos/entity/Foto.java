@@ -1,19 +1,25 @@
 package com.example.simarropopaccesoadatos.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 @Entity(name = "foto")
 public class Foto {
+
+    @Schema(description = "Identificador de la foto", example = "1")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Schema(description = "Ubicacion de la foto", example = "./imagenes/producto1/imagen1.png")
     @Column
     private String url;
 
+    @Schema(description = "Breve descripcion de la foto", example = "Foto delantera del estroboscopio")
     @Column
     private String descripcio;
 
+    @Schema(description = "Identificador del producto al que pertenece la foto", example = "1")
     @ManyToOne
     @JoinColumn(name = "id_producto")
     private Producto producto;

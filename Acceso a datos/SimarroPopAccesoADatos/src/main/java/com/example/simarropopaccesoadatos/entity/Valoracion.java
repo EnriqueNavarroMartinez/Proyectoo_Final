@@ -1,19 +1,25 @@
 package com.example.simarropopaccesoadatos.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 @Entity(name = "valoracion")
 public class Valoracion {
+
+    @Schema(description = "Identificador de la valoracion", example = "1")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Schema(description = "Valoracion del producto", example = "9")
     @Column
     private Integer valoracion;
 
+    @Schema(description = "Comentario de la valoracion", example = "Muy buena senial")
     @Column
     private String comentario;
 
+    @Schema(description = "Identificador del usuario al que pertenece la valoracion", example = "1")
     @ManyToOne//(cascade = CascadeType)
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
