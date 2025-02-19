@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -34,7 +35,7 @@ public class UsuarioController {
                     content = @Content(schema = @Schema(implementation=ResponseEntity.class))),
             })
     @PostMapping
-    ResponseEntity<Usuario> registrar(@RequestBody Usuario usuario) {
+    ResponseEntity<Usuario> registrar(@Valid @RequestBody Usuario usuario) {
 
         return new ResponseEntity<>(service.registrar(usuario), HttpStatus.OK);
     }
@@ -51,7 +52,7 @@ public class UsuarioController {
                     content = @Content(schema = @Schema(implementation=ResponseEntity.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> modificar(@PathVariable Integer id, @RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> modificar(@PathVariable Integer id, @Valid @RequestBody Usuario usuario) {
 
         if (service.modificar(id, usuario) != null) {
             return new ResponseEntity<>(service.modificar(id, usuario), HttpStatus.OK);

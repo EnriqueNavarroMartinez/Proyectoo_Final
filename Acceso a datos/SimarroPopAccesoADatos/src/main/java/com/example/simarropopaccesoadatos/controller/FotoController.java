@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,7 @@ public class FotoController {
                     content = @Content(schema = @Schema(implementation=ResponseEntity.class)))
     })
     @PostMapping("/producto/{idProducto}")
-    public ResponseEntity<Foto> registrar(@RequestBody Foto foto, @PathVariable("idProducto")Integer idProducto ){
+    public ResponseEntity<Foto> registrar(@Valid @RequestBody Foto foto, @PathVariable("idProducto")Integer idProducto ){
 
         if (service.registrar(foto, idProducto) != null) {
             return new ResponseEntity<>(service.registrar(foto, idProducto), HttpStatus.OK);
@@ -55,7 +56,7 @@ public class FotoController {
                     content = @Content(schema = @Schema(implementation=ResponseEntity.class)))
     })
     @PutMapping
-    public ResponseEntity<Foto> modificar(@RequestBody Foto foto) {
+    public ResponseEntity<Foto> modificar(@Valid @RequestBody Foto foto) {
         if (service.modificar(foto) != null ) {
             return new ResponseEntity<>(service.modificar(foto), HttpStatus.OK);
         } else {
