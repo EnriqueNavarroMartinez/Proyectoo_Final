@@ -2,6 +2,7 @@ package com.example.simarropopaccesoadatos.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity(name = "categoria")
 public class Categoria {
@@ -13,6 +14,7 @@ public class Categoria {
 
     @Schema(description = "Nombre de la categoria", example = "Inmobiliaria")
     @Column
+    @NotNull
     private String nombre;
 
     @Schema(description = "Descripcion de la categoria", example = "Casas, casetas, garajes, apartamentos...")

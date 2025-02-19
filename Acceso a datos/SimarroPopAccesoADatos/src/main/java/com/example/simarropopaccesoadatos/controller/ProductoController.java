@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,7 @@ public class ProductoController {
                     content = @Content(schema = @Schema(implementation=ResponseEntity.class)))
     })
     @PostMapping
-    ResponseEntity<Producto> registrar(@RequestBody Producto producto) {
+    ResponseEntity<Producto> registrar(@Valid @RequestBody Producto producto) {
         if (service.registrar(producto) != null) {
             return new ResponseEntity<>(service.registrar(producto), HttpStatus.OK);
         } else {
@@ -58,7 +59,7 @@ public class ProductoController {
                     content = @Content(schema = @Schema(implementation=ResponseEntity.class)))
     })
     @PutMapping
-    ResponseEntity<Producto> modificar(@RequestBody Producto producto) {
+    ResponseEntity<Producto> modificar(@Valid @RequestBody Producto producto) {
         if (service.modificar(producto) != null) {
             return new ResponseEntity<>(service.modificar(producto), HttpStatus.OK);
         } else {

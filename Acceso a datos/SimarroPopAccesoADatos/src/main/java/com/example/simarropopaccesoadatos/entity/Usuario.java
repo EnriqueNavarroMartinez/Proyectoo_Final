@@ -2,6 +2,8 @@ package com.example.simarropopaccesoadatos.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 
 @Entity(name = "usuario")
 public class Usuario {
@@ -17,10 +19,12 @@ public class Usuario {
 
     @Schema(description = "Correo del usuario", example = "manolo69@ejemplo.es")
     @Column
+    @Email(message = "Email incorrecto")
     private String correo;
 
     @Schema(description = "Contrasenya del usuario", example = "contrasenya1234")
     @Column
+    @Size(min= 4, message = "La contrasenya debe tener minimo 4 caracteres")
     private String contrasenya;
 
     @Schema(description = "Numero de telefono del usuario", example = "626 101 989")

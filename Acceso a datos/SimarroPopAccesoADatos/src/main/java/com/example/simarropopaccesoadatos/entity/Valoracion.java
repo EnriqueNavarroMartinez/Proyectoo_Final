@@ -2,6 +2,9 @@ package com.example.simarropopaccesoadatos.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 @Entity(name = "valoracion")
 public class Valoracion {
@@ -13,6 +16,9 @@ public class Valoracion {
 
     @Schema(description = "Valoracion del producto", example = "9")
     @Column
+    @NotNull
+    @Min(0)
+    @Max(5)
     private Integer valoracion;
 
     @Schema(description = "Comentario de la valoracion", example = "Muy buena senial")

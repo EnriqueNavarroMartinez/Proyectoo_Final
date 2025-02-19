@@ -2,6 +2,7 @@ package com.example.simarropopaccesoadatos.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class Producto {
 
     @Schema(description = "Nombre del producto", example = "Estroboscopio")
     @Column
+    @NotNull
     private String nombre;
 
     @Schema(description = "Descripcion del producto", example = "Aparatejo que estroboscopea")
@@ -37,6 +39,7 @@ public class Producto {
 
     @Schema(description = "Precio unitario del producto", example = "29")
     @Column
+    @NotNull
     private Long precio;
 
     @Schema(description = "Ubicacion del producto", example = "Barcelona")
