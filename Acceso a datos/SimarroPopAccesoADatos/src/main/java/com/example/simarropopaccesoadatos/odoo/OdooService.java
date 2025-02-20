@@ -9,8 +9,8 @@ import java.util.*;
 public class OdooService {
 
     private static final String HOST = "odoogrupoe.com";
-    private static final String DB = "simarropop";
-    private static final String USER = "admin@gmail.com";
+    private static final String DB = "proyecto3";
+    private static final String USER = "admin";
     private static final String PASS = "admin";
     private static final String JSON_RPC_URL = "http://" + HOST + "/jsonrpc";
 
@@ -20,7 +20,7 @@ public class OdooService {
         this.restTemplate = restTemplate;
     }
 
-    // Metodo para realizar una llamada JSON-RPC
+    // Mètode per realitzar una crida JSON-RPC
     private Object jsonRpcCall(String method, Map<String, Object> params) {
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("jsonrpc", "2.0");
@@ -37,13 +37,13 @@ public class OdooService {
         Map<String, Object> responseBody = response.getBody();
 
         if (responseBody != null && responseBody.containsKey("error")) {
-            throw new RuntimeException("Error en la llamada JSON-RPC: " + responseBody.get("error"));
+            throw new RuntimeException("Error en la crida JSON-RPC: " + responseBody.get("error"));
         }
 
         return responseBody != null ? responseBody.get("result") : null;
     }
 
-    // Metodo para llamar a un servicio específico
+    // Metode per cridar a un servei específic
     private Object call(String service, String method, Object... args) {
         Map<String, Object> params = new HashMap<>();
         params.put("service", service);
@@ -52,14 +52,42 @@ public class OdooService {
         return jsonRpcCall("call", params);
     }
 
-    // Metodo para obtener la lista de clientes
-    public List<Object> getClients() {
+    // Metodo para crear clientes, realizar una compra y generar una factura en Odoo
+    public void createClientAndPurchase(List<Map<String, Object>> clients, List<Map<String, Object>> products) {
         // Autenticación
         int uid = (int) call("common", "login", DB, USER, PASS);
 
-        // Obtener lista de clientes
-        Object[] args = new Object[]{};
-        return (List<Object>) call("object", "execute", DB, uid, PASS, "res.partner", "search", args);
+        // Crear clientes en el modelo res.partner
+        for (Map<String, Object> client : clients) {
+            int partnerId = (int) call("object", "execute", DB, uid, PASS, "res.partner", "create", client);
+
+            // Crear una orden de venta (sale.order)
+            Map<String, Object> saleOrder = new HashMap<>();
+            saleOrder.put("partner_id", partnerId); // Asociar el cliente
+            saleOrder.put("order_line", createOrderLines(products)); // Añadir líneas de pedido
+
+            int saleOrderId = (int) call("object", "execute", DB, uid, PASS, "sale.order", "create", saleOrder);
+
+            // Confirmar la orden de venta
+            call("object", "execute", DB, uid, PASS, "sale.order", "action_confirm", saleOrderId);
+
+            // Generar la factura (Odoo lo hace automáticamente al confirmar la orden)
+            // Si necesitas personalizar la factura, puedes usar el modelo account.move
+        }
+    }
+
+    // Metodo para crear líneas de pedido
+    private List<Object> createOrderLines(List<Map<String, Object>> products) {
+        List<Object> orderLines = new ArrayList<>();
+
+        for (Map<String, Object> product : products) {
+            Map<String, Object> orderLine = new HashMap<>();
+            orderLine.put("product_id", product.get("product_id")); // ID del producto
+            orderLine.put("product_uom_qty", product.get("quantity")); // Cantidad
+            orderLine.put("price_unit", product.get("price")); // Precio unitario
+            orderLines.add(new Object[]{0, 0, orderLine});
+        }
+
+        return orderLines;
     }
 }
-

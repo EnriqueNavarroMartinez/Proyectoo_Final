@@ -1,21 +1,49 @@
 package com.example.simarropopaccesoadatos.odoo;
 
-import com.example.simarropopaccesoadatos.odoo.OdooService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/api/odoo")
+@RequestMapping("/odoo")
 public class OdooController {
 
     @Autowired
     private OdooService odooService;
 
-    @GetMapping("/clients")
-    public List<Object> getClients() {
-        return odooService.getClients();
+    // Endpoint para crear un cliente en Odoo
+    @PostMapping("/clientes")
+    public String createClientsAndPurchase(@RequestBody RequestData requestData) {
+        try {
+            odooService.createClientAndPurchase(requestData.getClients(), requestData.getProducts());
+            return "Clients creats i compra realitzada amb èxit.";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error en crear clients o realitzar la compra: " + e.getMessage();
+        }
+    }
+
+    // Classe interna per mapejar la petició JSON
+    public static class RequestData {
+        private List<Map<String, Object>> clients;
+        private List<Map<String, Object>> products;
+
+        public List<Map<String, Object>> getClients() {
+            return clients;
+        }
+
+        public void setClients(List<Map<String, Object>> clients) {
+            this.clients = clients;
+        }
+
+        public List<Map<String, Object>> getProducts() {
+            return products;
+        }
+
+        public void setProducts(List<Map<String, Object>> products) {
+            this.products = products;
+        }
     }
 }
