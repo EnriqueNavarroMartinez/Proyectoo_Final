@@ -38,7 +38,7 @@ public class ProductoController {
                     description = "El usuario no existe",
                     content = @Content(schema = @Schema(implementation=ResponseEntity.class)))
     })
-    @PostMapping
+    @PostMapping("/registrar")
     ResponseEntity<Producto> registrar(@Valid @RequestBody Producto producto) {
         if (service.registrar(producto) != null) {
             return new ResponseEntity<>(service.registrar(producto), HttpStatus.OK);
